@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CGPA Calculator - Create Account</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+
+            background:
+                radial-gradient(circle at 20% 20%, #2563eb55, transparent 30%),
+                radial-gradient(circle at 80% 80%, #7c3aed55, transparent 30%),
+                linear-gradient(135deg, #020617, #0f172a, #1e3a8a);
+
+            color: white;
+        }
+
+        /* Background circles */
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(2px);
+            animation: float 6s infinite ease-in-out;
+        }
+
+        .circle1 {
+            width: 180px;
+            height: 180px;
+            background: #2563eb55;
+            top: 5%;
+            left: 8%;
+        }
+
+        .circle2 {
+            width: 130px;
+            height: 130px;
+            background: #9333ea55;
+            bottom: 10%;
+            right: 10%;
+            animation-delay: 2s;
+        }
+
+        .circle3 {
+            width: 90px;
+            height: 90px;
+            background: #06b6d455;
+            top: 65%;
+            left: 15%;
+            animation-delay: 1s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-30px);
+            }
+        }
+
+        /* Create Account Box */
+        .account-box {
+            position: relative;
+            width: 390px;
+            padding: 40px;
+            border-radius: 25px;
+
+            background: rgba(255, 255, 255, 0.10);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+
+            border: 1px solid rgba(255, 255, 255, 0.25);
+
+            box-shadow:
+                0 25px 60px rgba(0, 0, 0, 0.5),
+                inset 0 0 20px rgba(255, 255, 255, 0.05);
+
+            z-index: 10;
+
+            transition: 0.4s;
+        }
+
+        .account-box:hover {
+            transform: translateY(-5px);
+
+            box-shadow:
+                0 30px 70px rgba(0, 0, 0, 0.6),
+                0 0 30px rgba(37, 99, 235, 0.25);
+        }
+
+        /* Logo */
+        .logo {
+            width: 75px;
+            height: 75px;
+            margin: auto;
+
+            border-radius: 50%;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+
+            font-size: 30px;
+
+            box-shadow: 0 0 30px #2563eb88;
+
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 10px #2563eb55;
+            }
+
+            50% {
+                box-shadow: 0 0 35px #2563ebaa;
+            }
+
+            100% {
+                box-shadow: 0 0 10px #2563eb55;
+            }
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 18px;
+            font-size: 28px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #cbd5e1;
+            margin: 8px 0 25px;
+            font-size: 14px;
+        }
+
+        /* Input */
+        .input-box {
+            position: relative;
+            margin-bottom: 18px;
+        }
+
+        .input-box input {
+            width: 100%;
+
+            padding: 15px 45px 15px 15px;
+
+            background: rgba(255, 255, 255, 0.08);
+
+            border: 1px solid rgba(255, 255, 255, 0.25);
+
+            border-radius: 12px;
+
+            outline: none;
+
+            color: white;
+
+            font-size: 15px;
+
+            transition: 0.3s;
+        }
+
+        .input-box input::placeholder {
+            color: #cbd5e1;
+        }
+
+        .input-box input:focus {
+            border-color: #60a5fa;
+
+            box-shadow: 0 0 15px #2563eb66;
+
+            transform: scale(1.02);
+        }
+
+        .input-icon {
+            position: absolute;
+
+            right: 15px;
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            font-size: 18px;
+        }
+
+        /* Create Button */
+        .create-btn {
+            width: 100%;
+
+            padding: 15px;
+
+            border: none;
+
+            border-radius: 12px;
+
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+
+            box-shadow: 0 8px 20px #2563eb55;
+        }
+
+        .create-btn:hover {
+            transform: translateY(-3px);
+
+            box-shadow: 0 12px 30px #2563eb88;
+        }
+
+        .create-btn:active {
+            transform: scale(0.94);
+        }
+
+        /* Login link */
+        .login-link {
+            text-align: center;
+
+            margin-top: 20px;
+
+            font-size: 14px;
+
+            color: #cbd5e1;
+        }
+
+        .login-link a {
+            color: #93c5fd;
+
+            text-decoration: none;
+
+            font-weight: bold;
+        }
+
+        .login-link a:hover {
+            color: white;
+
+            text-shadow: 0 0 10px #60a5fa;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+
+            margin-top: 25px;
+
+            font-size: 11px;
+
+            color: #94a3b8;
+        }
+
+        /* Mobile */
+        @media (max-width: 450px) {
+            .account-box {
+                width: 90%;
+
+                padding: 30px 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Animated Background -->
+    <div class="circle circle1"></div>
+    <div class="circle circle2"></div>
+    <div class="circle circle3"></div>
+
+    <!-- Create Account -->
+    <div class="account-box">
+
+        <div class="logo">🎓</div>
+
+        <h1>Create Account</h1>
+
+        <p class="subtitle">
+            Create your account for CGPA Calculator
+        </p>
+
+        <form onsubmit="createAccount(event)">
+
+            <!-- Username -->
+            <div class="input-box">
+
+                <input
+                    type="text"
+                    id="newUsername"
+                    placeholder="Enter Username"
+                    required
+                >
+
+                <span class="input-icon">👤</span>
+
+            </div>
+
+            <!-- Password -->
+            <div class="input-box">
+
+                <input
+                    type="text"
+                    id="newPassword"
+                    placeholder="Enter Password"
+                    required
+                >
+
+                <span class="input-icon">🔑</span>
+
+            </div>
+
+            <!-- Confirm Password -->
+            <div class="input-box">
+
+                <input
+                    type="text"
+                    id="confirmPassword"
+                    placeholder="Confirm Password"
+                    required
+                >
+
+                <span class="input-icon">🔐</span>
+
+            </div>
+
+            <!-- Create Account Button -->
+            <button class="create-btn" type="submit">
+                CREATE ACCOUNT
+            </button>
+
+        </form>
+
+        <!-- Login -->
+        <div class="login-link">
+            Already have an account?
+            <a href="login.html">Login</a>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            Design and develop by Lokesh A 2007 IT Department
+        </div>
+
+    </div>
+
+
+    <script>
+
+        function createAccount(event) {
+
+            event.preventDefault();
+
+            let username =
+                document.getElementById("newUsername").value.trim();
+
+            let password =
+                document.getElementById("newPassword").value;
+
+            let confirmPassword =
+                document.getElementById("confirmPassword").value;
+
+
+            /* Check password */
+            if (password !== confirmPassword) {
+
+                alert("❌ Passwords do not match!");
+
+                return;
+            }
+
+
+            /* Check existing account */
+            let existingUsername =
+                localStorage.getItem("username");
+
+            if (existingUsername === username) {
+
+                alert("⚠️ Username already exists!");
+
+                return;
+            }
+
+
+            /* Save account */
+            localStorage.setItem("username", username);
+
+            localStorage.setItem("password", password);
+
+
+            alert(
+                "✅ Account created successfully!\n\nWelcome " +
+                username
+            );
+
+
+            /* Go to Login */
+            window.location.href = "login.html";
+        }
+
+    </script>
+
+</body>
+</html>
+
+Important: change your Login page
+
+In your existing login code, change:
+
+<a href="#">Create Account</a>
+
+to:
+
+<a href="create-account.html">Create Account</a>
+
+Also, your login JavaScript currently accepts any username/password. To make the newly created account actually work, replace your "login()" function with:
+
+<script>
+function login(event) {
+
+    event.preventDefault();
+
+    let username = document.getElementById("username").value;
+    let password = document.getElementById("password").value;
+
+    let savedUsername = localStorage.getItem("username");
+    let savedPassword = localStorage.getItem("password");
+
+    if (username === savedUsername && password === savedPassword) {
+
+        alert("✅ Login Successful! Welcome " + username);
+
+        window.location.href = "cgpa.html";
+
+    } else {
+
+        alert("❌ Invalid Username or Password");
+
+    }
+}
+</script>
+
+Your page flow will be
+
+Login page → Create Account → Account created → Login page → CGPA Calculator
+
+Keep these files in the same VS Code folder:
+
+CGPA-Calculator/
+│
+├── login.html
+├── create-account.html
+└── cgpa.html
+
+This version also keeps the password visible while typing, as in your original code.

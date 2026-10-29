@@ -1,0 +1,790 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>CGPA Calculator</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    padding: 30px 15px;
+    background: linear-gradient(135deg, #020617, #1e3a8a, #312e81);
+    color: white;
+}
+
+.container {
+    max-width: 950px;
+    margin: auto;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.header h1 {
+    font-size: 34px;
+    margin-bottom: 8px;
+}
+
+.header p {
+    color: #cbd5e1;
+}
+
+.card {
+    background: rgba(255,255,255,0.10);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 25px;
+    padding: 30px;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.5);
+}
+
+.card h2 {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+/* Subject Rows */
+
+.subject-row {
+    display: grid;
+    grid-template-columns: 80px 1fr 1fr 1fr 90px;
+    gap: 12px;
+    align-items: center;
+
+    padding: 15px;
+    margin-bottom: 12px;
+
+    background: rgba(255,255,255,0.06);
+    border-radius: 15px;
+
+    border: 1px solid rgba(255,255,255,0.12);
+
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+.subject-number {
+    font-weight: bold;
+    color: #93c5fd;
+}
+
+select,
+input {
+
+    width: 100%;
+    padding: 13px;
+
+    border-radius: 10px;
+
+    border: 1px solid rgba(255,255,255,0.2);
+
+    background: rgba(255,255,255,0.08);
+
+    color: white;
+
+    outline: none;
+
+    font-size: 14px;
+
+    transition: 0.3s;
+}
+
+select:focus,
+input:focus {
+
+    border-color: #60a5fa;
+
+    box-shadow: 0 0 15px #2563eb88;
+
+    transform: scale(1.02);
+}
+
+select option {
+    color: black;
+}
+
+/* Buttons */
+
+.add-button {
+
+    width: 100%;
+
+    padding: 16px;
+
+    margin-top: 15px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background: linear-gradient(135deg, #2563eb, #7c3aed);
+
+    color: white;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.add-button:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow: 0 10px 30px #2563eb88;
+}
+
+.add-button:active {
+
+    transform: scale(0.95);
+}
+
+.remove-button {
+
+    padding: 10px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: #ef4444;
+
+    color: white;
+
+    cursor: pointer;
+
+}
+
+.remove-button:active {
+
+    transform: scale(0.9);
+}
+
+/* Calculate */
+
+.calculate-button {
+
+    width: 100%;
+
+    padding: 16px;
+
+    margin-top: 25px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background: #22c55e;
+
+    color: white;
+
+    font-size: 17px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.calculate-button:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow: 0 10px 25px #22c55e66;
+}
+
+.calculate-button:active {
+
+    transform: scale(0.95);
+}
+
+/* Result */
+
+.result {
+
+    margin-top: 25px;
+
+    padding: 25px;
+
+    text-align: center;
+
+    border-radius: 18px;
+
+    background: rgba(37,99,235,0.15);
+
+    border: 1px solid rgba(96,165,250,0.3);
+}
+
+.result h3 {
+
+    color: #cbd5e1;
+}
+
+.cgpa {
+
+    font-size: 50px;
+
+    font-weight: bold;
+
+    color: #60a5fa;
+
+    margin: 10px;
+}
+
+.feedback {
+
+    color: #cbd5e1;
+
+    font-size: 16px;
+}
+
+.clear-button {
+
+    width: 100%;
+
+    padding: 13px;
+
+    margin-top: 12px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: #ef4444;
+
+    color: white;
+
+    cursor: pointer;
+
+}
+
+.footer {
+
+    text-align: center;
+
+    margin-top: 25px;
+
+    color: #94a3b8;
+
+    font-size: 12px;
+}
+
+
+/* Mobile */
+
+@media(max-width: 700px) {
+
+    .subject-row {
+
+        grid-template-columns: 1fr;
+
+    }
+
+    .subject-number {
+
+        text-align: center;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+
+        <h1>🎓 CGPA Calculator</h1>
+
+        <p>
+            Add all your subjects and calculate your CGPA
+        </p>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>Enter Subject Details</h2>
+
+
+        <!-- ALL SUBJECTS WILL APPEAR HERE -->
+
+        <div id="subjectsContainer"></div>
+
+
+        <!-- ADD MORE SUBJECT -->
+
+        <button
+            class="add-button"
+            onclick="addSubject()">
+
+            ＋ Add More Subject
+
+        </button>
+
+
+        <!-- CALCULATE -->
+
+        <button
+            class="calculate-button"
+            onclick="calculateCGPA()">
+
+            Calculate CGPA
+
+        </button>
+
+
+        <!-- RESULT -->
+
+        <div class="result">
+
+            <h3>Your CGPA</h3>
+
+            <div
+                class="cgpa"
+                id="cgpa">
+
+                0.00
+
+            </div>
+
+            <p
+                class="feedback"
+                id="feedback">
+
+                Add your subjects and calculate your CGPA.
+
+            </p>
+
+        </div>
+
+
+        <button
+            class="clear-button"
+            onclick="clearAll()">
+
+            Clear All
+
+        </button>
+
+    </div>
+
+
+    <div class="footer">
+
+        Design and develop by Lokesh A 2007 IT Department
+
+    </div>
+
+</div>
+
+
+<script>
+
+/*
+====================================================
+CGPA CALCULATOR
+NO SUBJECT LIMIT
+====================================================
+*/
+
+let subjectCount = 0;
+
+
+/*
+====================================================
+ADD SUBJECT
+Every click creates a new subject
+====================================================
+*/
+
+function addSubject() {
+
+    subjectCount++;
+
+    const container =
+        document.getElementById("subjectsContainer");
+
+
+    const row =
+        document.createElement("div");
+
+
+    row.className = "subject-row";
+
+    row.id = "subject-" + subjectCount;
+
+
+    row.innerHTML = `
+
+        <div class="subject-number">
+
+            Subject ${subjectCount}
+
+        </div>
+
+
+        <div>
+
+            <select
+                class="grade">
+
+                <option value="">
+                    Select Grade
+                </option>
+
+                <option value="O">
+                    O
+                </option>
+
+                <option value="A+">
+                    A+
+                </option>
+
+                <option value="A">
+                    A
+                </option>
+
+                <option value="B+">
+                    B+
+                </option>
+
+                <option value="B">
+                    B
+                </option>
+
+                <option value="C">
+                    C
+                </option>
+
+                <option value="U">
+                    U
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div>
+
+            <input
+                type="number"
+                class="gradePoint"
+                placeholder="Grade Point"
+                min="0"
+                max="10"
+                step="0.1">
+
+        </div>
+
+
+        <div>
+
+            <input
+                type="number"
+                class="credit"
+                placeholder="Credit"
+                min="0"
+                step="0.5">
+
+        </div>
+
+
+        <div>
+
+            <button
+                class="remove-button"
+                onclick="removeSubject(${subjectCount})">
+
+                Remove
+
+            </button>
+
+        </div>
+
+    `;
+
+
+    container.appendChild(row);
+
+}
+
+
+/*
+====================================================
+REMOVE SUBJECT
+====================================================
+*/
+
+function removeSubject(id) {
+
+    const row =
+        document.getElementById("subject-" + id);
+
+    if (row) {
+
+        row.remove();
+
+    }
+
+}
+
+
+/*
+====================================================
+CALCULATE CGPA
+====================================================
+*/
+
+function calculateCGPA() {
+
+    const rows =
+        document.querySelectorAll(".subject-row");
+
+
+    if (rows.length === 0) {
+
+        alert(
+            "Please add at least one subject."
+        );
+
+        return;
+
+    }
+
+
+    let totalPoints = 0;
+
+    let totalCredits = 0;
+
+
+    let valid = true;
+
+
+    rows.forEach(function(row) {
+
+
+        const grade =
+            row.querySelector(".grade").value;
+
+
+        const gradePoint =
+            parseFloat(
+                row.querySelector(".gradePoint").value
+            );
+
+
+        const credit =
+            parseFloat(
+                row.querySelector(".credit").value
+            );
+
+
+        /*
+        Check whether all fields are entered
+        */
+
+        if (
+            grade === "" ||
+            isNaN(gradePoint) ||
+            isNaN(credit)
+        ) {
+
+            valid = false;
+
+            return;
+
+        }
+
+
+        /*
+        Check Grade Point
+        */
+
+        if (
+            gradePoint < 0 ||
+            gradePoint > 10
+        ) {
+
+            valid = false;
+
+            return;
+
+        }
+
+
+        /*
+        Check Credit
+        */
+
+        if (credit <= 0) {
+
+            valid = false;
+
+            return;
+
+        }
+
+
+        /*
+        CGPA calculation
+        */
+
+        totalPoints +=
+            gradePoint * credit;
+
+
+        totalCredits +=
+            credit;
+
+    });
+
+
+    if (!valid) {
+
+        alert(
+            "Please enter Grade, Grade Point and Credit for every subject."
+        );
+
+        return;
+
+    }
+
+
+    /*
+    Final CGPA
+    */
+
+    const cgpa =
+        totalPoints / totalCredits;
+
+
+    document.getElementById("cgpa")
+        .innerText =
+        cgpa.toFixed(2);
+
+
+    /*
+    Feedback
+    */
+
+    let feedback;
+
+
+    if (cgpa >= 9) {
+
+        feedback =
+            "🌟 Excellent! Outstanding academic performance.";
+
+    }
+
+    else if (cgpa >= 8) {
+
+        feedback =
+            "👏 Very Good! Keep maintaining your performance.";
+
+    }
+
+    else if (cgpa >= 7) {
+
+        feedback =
+            "👍 Good performance. You can improve further.";
+
+    }
+
+    else if (cgpa >= 6) {
+
+        feedback =
+            "📚 Average performance. Focus more on your studies.";
+
+    }
+
+    else if (cgpa >= 5) {
+
+        feedback =
+            "⚠️ You need to improve your academic performance.";
+
+    }
+
+    else {
+
+        feedback =
+            "❗ Low CGPA. Work harder and seek guidance.";
+
+    }
+
+
+    document.getElementById("feedback")
+        .innerText =
+        feedback;
+
+}
+
+
+/*
+====================================================
+CLEAR EVERYTHING
+====================================================
+*/
+
+function clearAll() {
+
+    document.getElementById(
+        "subjectsContainer"
+    ).innerHTML = "";
+
+
+    subjectCount = 0;
+
+
+    document.getElementById("cgpa")
+        .innerText = "0.00";
+
+
+    document.getElementById("feedback")
+        .innerText =
+        "Add your subjects and calculate your CGPA.";
+
+}
+
+</script>
+
+</body>
+</html>
+```
